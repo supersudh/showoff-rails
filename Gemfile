@@ -5,6 +5,7 @@ ruby "2.7.0"
 
 gem "webpacker"
 gem "react-rails"
+gem "rest-client"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 5.2.1"
