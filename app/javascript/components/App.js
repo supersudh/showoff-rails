@@ -7,12 +7,14 @@ import configureStore from '../configureStore';
 
 import HelloWorld from './HelloWorld';
 
+const store = configureStore();
+
 class App extends React.Component {
   render() {
     console.log(this.props);
     return (
-      <Provider>
-        <BrowserRouter store={configureStore()}>
+      <Provider store={store}>
+        <BrowserRouter>
           <Switch>
             <Route exact path="/" render={() => ("Home!")} />
             <Route path="/hello" render={() => <HelloWorld greeting="hardcoded" />} />
