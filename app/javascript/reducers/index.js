@@ -1,14 +1,7 @@
 import { combineReducers } from 'redux';
 
-// const initialState = {
-//   things: []
-// };
+import globalReducer from './global';
 
-// function rootReducer(state, action) {
-//   switch (action.type) {
-//     default:
-//       return state;
-//   }
-// }
-
-export default combineReducers({});
+export default combineReducers({
+  global: globalReducer
+});
