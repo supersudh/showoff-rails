@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+import { stopSubmit, setSubmitSucceeded } from 'redux-form';
+import { push, replace } from 'connected-react-router'
+
 import {
   getAuthDetails,
   storeAuthDetails,
@@ -50,3 +53,36 @@ export const searchWidgets = (term) => {
 export const setWidgetSearchTerm = term => dispatch => dispatch({
   type: constants.SET_WIDGET_SEARCH_TERM, payload: term
 });
+
+// FORMS
+export const onSubmitRegisterForm = values => async (dispatch, getState) => {
+  console.log(values);
+
+  setTimeout(() => {
+    dispatch(replace('/'));
+  }, 100);
+  return false;
+  // console.log(getState());
+  try {
+    // dispatch(startSubmit('SignupForm'));
+    const body = values;
+    const { data: response } = await axios.post(`${window.location.origin}/v1/users`, body);
+    console.log(response);
+    if (response.code !== 0) {
+      throw { email: response.message };
+    } else {
+      storeAuthDetails(response.data.token);
+      dispatch(setSubmitSucceeded('SignupForm'));
+      dispatch(replace('/'));
+    }
+  } catch (error) {
+    setTimeout(() => {
+      dispatch(stopSubmit('SignupForm', error));
+    }, 100);
+    // throw error;
+  }
+};
+export const onSubmitLoginForm = () => async (dispatch, getState) => { };
+export const onSubmitForgotPasswordForm = () => async (dispatch, getState) => { };
+export const onSubmitChangePasswordForm = () => async (dispatch, getState) => { };
+// END FORMS

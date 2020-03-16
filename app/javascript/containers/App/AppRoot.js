@@ -19,6 +19,9 @@ class AppRoot extends Component {
     fetchWidgets: PropTypes.func.isRequired,
     searchWidgets: PropTypes.func.isRequired,
     setWidgetSearchTerm: PropTypes.func.isRequired,
+    // forms
+    onSubmitRegisterForm: PropTypes.func.isRequired,
+    onSubmitLoginForm: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -51,11 +54,15 @@ class AppRoot extends Component {
                 </Route>
 
                 <Route path="/login">
-                  <LoginForm />
+                  <LoginForm
+                    onSubmit={(values) => this.props.onSubmitLoginForm(values)}
+                  />
                 </Route>
 
                 <Route path="/register">
-                  <SignupForm />
+                  <SignupForm
+                    onSubmit={this.props.onSubmitRegisterForm}
+                  />
                 </Route>
               </Switch>
             </div>
