@@ -1,20 +1,22 @@
 import React from "react"
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
 
+import history from '../../utils/history';
 import configureStore from '../../configureStore';
 
 import AppRoot from './AppRoot';
 
-const store = configureStore();
+const initialState = {};
+const store = configureStore(initialState, history);
 
 class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <BrowserRouter>
+        <ConnectedRouter history={history}>
           <AppRoot />
-        </BrowserRouter>
+        </ConnectedRouter>
       </Provider>
     );
   }
