@@ -13,6 +13,7 @@ import LoginForm from './components/LoginForm';
 import SignupForm from './components/SignupForm';
 import ChangePasswordForm from './components/ChangePasswordForm';
 import ForgotPasswordForm from './components/ForgotPasswordForm';
+import SettingsForm from './components/SettingsForm';
 import Widget from './components/Widget';
 import CreateWidgetModal from './components/Widget/CreateWidgetModal';
 import UpdateWidgetModal from './components/Widget/UpdateWidgetModal';
@@ -21,6 +22,7 @@ class AppRoot extends Component {
   static propTypes = {
     global: PropTypes.object.isRequired,
     widget: PropTypes.object.isRequired,
+    form: PropTypes.object.isRequired,
     checkAuth: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired,
     fetchWidgets: PropTypes.func.isRequired,
@@ -33,6 +35,7 @@ class AppRoot extends Component {
     onSubmitLoginForm: PropTypes.func.isRequired,
     onSubmitChangePasswordForm: PropTypes.func.isRequired,
     onSubmitForgotPasswordForm: PropTypes.func.isRequired,
+    onSubmitSettingsForm: PropTypes.func.isRequired,
     onSubmitCreateWidgetForm: PropTypes.func.isRequired,
     onSubmitUpdateWidgetForm: PropTypes.func.isRequired,
     onLogout: PropTypes.func.isRequired,
@@ -122,6 +125,13 @@ class AppRoot extends Component {
                     onSubmit={this.props.onSubmitForgotPasswordForm}
                   />
                 </Route>
+                <Route path="/settings">
+                  <SettingsForm
+                    onSubmit={this.props.onSubmitSettingsForm}
+                    initialValues={this.props.global.currentUser ? this.props.global.currentUser.user : null}
+                    formValues={this.props.form}
+                  />
+                </Route>
               </Switch>
             </div>
           </main>
@@ -133,7 +143,8 @@ class AppRoot extends Component {
 
 const mapStateToProps = (state) => ({
   global: state.global,
-  widget: state.widget
+  widget: state.widget,
+  form: state.form
 })
 
 const mapDispatchToProps = bindActionCreators.bind(this, { ...globalActions, ...widgetActions });

@@ -20,6 +20,13 @@ export default function globalReducer(state = initialState, action) {
         currentUser: action.payload,
         isCheckingAuth: false
       });
+    case constants.UPDATE_CURRENT_USER:
+      return spreadState(state, {
+        currentUser: {
+          ...state.currentUser,
+          user: action.payload
+        }
+      });
     default:
       return state;
   }

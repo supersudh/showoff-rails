@@ -159,4 +159,27 @@ export const onSubmitChangePasswordForm = values => async (dispatch, getState) =
     setTimeout(() => dispatch(stopSubmit('ChangePasswordForm', error)), 100);
   }
 };
+
+export const onSubmitSettingsForm = values => async (dispatch, getState) => {
+  try {
+    const {
+      global: {
+        currentUser: {
+          token,
+        }
+      }
+    } = getState();
+    const body = {
+      ...values,
+      token: token.access_token
+    };
+    const { data: { data: { user } } } = await axios.post(`${window.location.origin}/v1/users/update`, body)
+    dispatch({ type: constants.UPDATE_CURRENT_USER, payload: user });
+    dispatch(setSubmitSucceeded('SettingsForm'));
+    alert('Updated!');
+  } catch (error) {
+    console.log('Error in onSubmitSettingsForm', error);
+    setTimeout(() => dispatch(stopSubmit('SettingsForm', error)), 100);
+  }
+};
 // END FORMS
