@@ -2,7 +2,7 @@ import React from "react"
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 
-import 'react-datepicker/dist/react-datepicker.min.css';
+import '../../stylesheets/react-datepicker.min.css';
 import './app_styles.css';
 import history from '../../utils/history';
 import configureStore from '../../configureStore';
