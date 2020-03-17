@@ -1,6 +1,12 @@
 class V1::UsersController < ApplicationController
   skip_before_action :verify_authenticity_token
 
+  def findById
+    authorizationHeader = request.headers["HTTP_AUTHORIZATION"]
+    response = ShowoffApi.getUser(authorizationHeader, params[:id])
+    render json: response
+  end
+
   def me
     authorizationHeader = request.headers["HTTP_AUTHORIZATION"]
     response = ShowoffApi.currentUser(authorizationHeader)
@@ -49,7 +55,6 @@ class V1::UsersController < ApplicationController
 
   def update
     token = update_user_params[:token]
-    puts token
     data = {
       :user => {
         :first_name => update_user_params[:first_name],
@@ -58,6 +63,19 @@ class V1::UsersController < ApplicationController
       },
     }
     response = ShowoffApi.updateUser(token, data)
+    render json: response
+  end
+
+  def widgets
+    userId = params[:id]
+    response = ShowoffApi.getUserWidgets(userId)
+    render json: response
+  end
+
+  def search_widgets
+    userId = params[:id]
+    term = params[:term]
+    response = ShowoffApi.searchUserWidgets(userId, term)
     render json: response
   end
 
