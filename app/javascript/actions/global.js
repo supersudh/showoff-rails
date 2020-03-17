@@ -56,13 +56,6 @@ export const setWidgetSearchTerm = term => dispatch => dispatch({
 
 // FORMS
 export const onSubmitRegisterForm = values => async (dispatch, getState) => {
-  console.log(values);
-
-  setTimeout(() => {
-    dispatch(replace('/'));
-  }, 100);
-  return false;
-  // console.log(getState());
   try {
     // dispatch(startSubmit('SignupForm'));
     const body = values;
