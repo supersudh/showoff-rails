@@ -6,7 +6,8 @@ import RenderTextField from '../../../components/RenderTextField';
 const validate = values => {
   const errors = {}
   const requiredFields = [
-    'email',
+    'current_password',
+    'new_password',
   ]
   requiredFields.forEach(field => {
     if (!values[field]) {
@@ -16,19 +17,23 @@ const validate = values => {
   return errors
 }
 
-class ForgotPasswordForm extends React.Component {
+class ChangePasswordForm extends React.Component {
   render() {
     const { handleSubmit, pristine, submitting } = this.props
     return (
       <form onSubmit={handleSubmit} style={{ width: '50%' }}>
-        <h3>Forgot Password</h3>
+        <h3>Change Password</h3>
         <div>
-          <Field name="email" component={RenderTextField} label="Username or Email" />
+          <Field name="current_password" component={RenderTextField} label="Current Password" type="password" />
+        </div>
+
+        <div>
+          <Field name="new_password" component={RenderTextField} label="New Password" type="password" />
         </div>
 
         <div>
           <button type="submit" disabled={pristine || submitting}>
-            Send Email
+            Change Password
           </button>
         </div>
       </form>
@@ -37,6 +42,6 @@ class ForgotPasswordForm extends React.Component {
 }
 
 export default reduxForm({
-  form: 'ForgotPasswordForm',
+  form: 'ChangePasswordForm',
   validate,
-})(ForgotPasswordForm)
+})(ChangePasswordForm)

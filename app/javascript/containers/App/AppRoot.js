@@ -10,6 +10,8 @@ import * as globalActions from '../../actions/global';
 import RootDrawer from '../../components/Drawer';
 import LoginForm from './components/LoginForm';
 import SignupForm from './components/SignupForm';
+import ChangePasswordForm from './components/ChangePasswordForm';
+import ForgotPasswordForm from './components/ForgotPasswordForm';
 import Widget from './components/Widget';
 
 class AppRoot extends Component {
@@ -22,6 +24,9 @@ class AppRoot extends Component {
     // forms
     onSubmitRegisterForm: PropTypes.func.isRequired,
     onSubmitLoginForm: PropTypes.func.isRequired,
+    onSubmitChangePasswordForm: PropTypes.func.isRequired,
+    onSubmitForgotPasswordForm: PropTypes.func.isRequired,
+    onLogout: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -36,13 +41,14 @@ class AppRoot extends Component {
       <div>
         <RootDrawer
           global={this.props.global}
+          onLogout={this.props.onLogout}
         >
           <main className={classes.content}>
             <div className={classes.toolbar} />
 
             <div className="main-content">
               <Switch>
-                <Route exact path="/">
+                <Route exact path="/widgets">
                   <Widget
                     fetchWidgets={this.props.fetchWidgets}
                     searchWidgets={this.props.searchWidgets}
@@ -62,6 +68,18 @@ class AppRoot extends Component {
                 <Route path="/register">
                   <SignupForm
                     onSubmit={this.props.onSubmitRegisterForm}
+                  />
+                </Route>
+
+                <Route path="/change_password">
+                  <ChangePasswordForm
+                    onSubmit={this.props.onSubmitChangePasswordForm}
+                  />
+                </Route>
+
+                <Route path="/forgot_password">
+                  <ForgotPasswordForm
+                    onSubmit={this.props.onSubmitForgotPasswordForm}
                   />
                 </Route>
               </Switch>

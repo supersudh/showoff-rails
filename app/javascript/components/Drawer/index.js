@@ -12,12 +12,11 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import WidgetsIcon from '@material-ui/icons/Widgets';
+import EmailIcon from '@material-ui/icons/Email';
 
 const drawerWidth = 240;
 
@@ -40,9 +39,10 @@ const useStyles = makeStyles(theme => ({
 
 function NonAuthenticatedActions({ history }) {
   return [
-    { label: 'Widgets', path: '/', Icon: WidgetsIcon },
+    { label: 'Widgets', path: '/widgets', Icon: WidgetsIcon },
     { label: 'Login', path: '/login', Icon: LockOpenIcon },
-    { label: 'Register', path: '/register', Icon: PersonAddIcon }
+    { label: 'Register', path: '/register', Icon: PersonAddIcon },
+    { label: 'Forgot Password', path: '/forgot_password', Icon: EmailIcon }
   ].map(({ label, path, Icon }, i) => (
     <ListItem button onClick={() => history.push(path)} key={`naa_${i}`}>
       <ListItemIcon><Icon /></ListItemIcon>
@@ -53,8 +53,8 @@ function NonAuthenticatedActions({ history }) {
 
 function AuthenticatedActions({ history }) {
   return [
-    { label: 'Widgets', path: '/', Icon: WidgetsIcon },
-    { label: 'Reset Password', path: '/login', Icon: LockOpenIcon },
+    { label: 'Widgets', path: '/widgets', Icon: WidgetsIcon },
+    { label: 'Change Password', path: '/change_password', Icon: LockOpenIcon },
   ].map(({ label, path, Icon }, i) => (
     <ListItem button onClick={() => history.push(path)} key={`aa_${i}`}>
       <ListItemIcon><Icon /></ListItemIcon>
@@ -78,7 +78,7 @@ function RootDrawer(props) {
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <Typography variant="h6" noWrap>
-            Showoff App
+            Showoff App {currentUser ? <span style={{ color: 'springgreen' }}>{`(Welcome, ${currentUser.user.name})`}</span> : null}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -98,7 +98,7 @@ function RootDrawer(props) {
         <Divider />
         <List>
           {currentUser ? (
-            <ListItem button>
+            <ListItem button onClick={props.onLogout}>
               <ListItemIcon><LockOpenIcon /></ListItemIcon>
               <ListItemText primary={'Logout'} />
             </ListItem>
@@ -112,7 +112,8 @@ function RootDrawer(props) {
 
 RootDrawer.propTypes = {
   global: PropTypes.object.isRequired,
-  children: PropTypes.element.isRequired
+  children: PropTypes.element.isRequired,
+  onLogout: PropTypes.func.isRequired,
 };
 
 export default withRouter(RootDrawer);
