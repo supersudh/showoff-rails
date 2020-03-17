@@ -1,6 +1,7 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
-import TextField from '@material-ui/core/TextField';
+
+import RenderTextField from '../../../components/RenderTextField';
 
 const validate = values => {
   const errors = {}
@@ -24,24 +25,6 @@ const validate = values => {
   return errors
 }
 
-const renderTextField = ({
-  input,
-  label,
-  meta: { touched, error },
-  ...custom
-}) => {
-  return (
-    <TextField
-      helperText={label}
-      label={error ? error : label}
-      error={touched && !!error}
-      {...input}
-      {...custom}
-      style={{ width: '100%' }}
-    />
-  );
-}
-
 class SignupForm extends React.Component {
   render() {
     const { handleSubmit, pristine, submitting } = this.props
@@ -51,19 +34,19 @@ class SignupForm extends React.Component {
         <div>
           <Field
             name="first_name"
-            component={renderTextField}
+            component={RenderTextField}
             label="First Name"
           />
         </div>
         <div>
-          <Field name="last_name" component={renderTextField} label="Last Name" />
+          <Field name="last_name" component={RenderTextField} label="Last Name" />
         </div>
         <div>
-          <Field name="email" component={renderTextField} label="Email" />
+          <Field name="email" component={RenderTextField} label="Email" />
         </div>
 
         <div>
-          <Field name="password" component={renderTextField} label="Password" type="password" />
+          <Field name="password" component={RenderTextField} label="Password" type="password" />
         </div>
 
         <div>
