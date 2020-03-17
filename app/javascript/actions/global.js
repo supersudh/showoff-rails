@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { stopSubmit, setSubmitSucceeded } from 'redux-form';
-import { push, replace } from 'connected-react-router'
+import { replace } from 'connected-react-router'
 
 import {
   getAuthDetails,
@@ -16,7 +16,6 @@ export const checkAuth = () => {
     try {
       const localAuthDetails = getAuthDetails();
       if (localAuthDetails) {
-        console.log(localAuthDetails);
         const Authorization = 'Bearer '.concat(localAuthDetails.access_token);
         const { data: currentUserResponse } = await axios.get(
           `${window.location.origin}/v1/users/me`,
@@ -63,34 +62,6 @@ export const onLogout = () => {
     }
   };
 }
-
-export const fetchWidgets = () => {
-  return async dispatch => {
-    dispatch({ type: constants.FETCH_WIDGETS });
-    try {
-      const { data: { widgets: payload } } = await axios.get(`${window.location.origin}/v1/widgets`);
-      return dispatch({ type: constants.SET_WIDGETS, payload });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
-
-export const searchWidgets = (term) => {
-  return async dispatch => {
-    dispatch({ type: constants.FETCH_WIDGETS });
-    try {
-      const { data: { widgets: payload } } = await axios.get(`${window.location.origin}/v1/widgets/search?term=${term}`);
-      return dispatch({ type: constants.SET_WIDGETS, payload });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
-
-export const setWidgetSearchTerm = term => dispatch => dispatch({
-  type: constants.SET_WIDGET_SEARCH_TERM, payload: term
-});
 
 // FORMS
 export const onSubmitForgotPasswordForm = values => async dispatch => {

@@ -2,6 +2,7 @@ import React from "react"
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 
+import './app_styles.css';
 import history from '../../utils/history';
 import configureStore from '../../configureStore';
 

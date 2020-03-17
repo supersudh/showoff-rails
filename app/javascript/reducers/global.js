@@ -3,9 +3,6 @@ import constants from '../constants/global';
 const initialState = {
   currentUser: null,
   isCheckingAuth: true,
-  widgets: [],
-  widgetSearchTerm: '',
-  isFetchingWidgets: false
 };
 
 const spreadState = (state, obj) => {
@@ -22,19 +19,6 @@ export default function globalReducer(state = initialState, action) {
       return spreadState(state, {
         currentUser: action.payload,
         isCheckingAuth: false
-      });
-    case constants.FETCH_WIDGETS:
-      return spreadState(state, {
-        isFetchingWidgets: !state.isFetchingWidgets
-      });
-    case constants.SET_WIDGETS:
-      return spreadState(state, {
-        widgets: action.payload,
-        isFetchingWidgets: !state.isFetchingWidgets
-      });
-    case constants.SET_WIDGET_SEARCH_TERM:
-      return spreadState(state, {
-        widgetSearchTerm: action.payload
       });
     default:
       return state;

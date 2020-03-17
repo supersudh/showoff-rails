@@ -4,10 +4,12 @@ import { reducer as formReducer } from 'redux-form';
 import history from '../utils/history';
 
 import globalReducer from './global';
+import widgetReducer from './widget';
 
 
 export default combineReducers({
   form: formReducer,
   router: connectRouter(history),
-  global: globalReducer
+  global: globalReducer,
+  widget: widgetReducer
 });

@@ -48,7 +48,7 @@ function WidgetSearch(props) {
       <IconButton
         type="submit"
         className={classes.iconButton} aria-label="search"
-        onClick={() => isDisabled ? false : searchWidgets(widgetSearchTerm)}
+        onClick={() => isDisabled ? false : searchWidgets()}
       >
         <SearchIcon />
       </IconButton>
