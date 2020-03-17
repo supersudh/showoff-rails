@@ -23,6 +23,7 @@ module ShowoffApi
     return JSON.parse(widgets)
   end
 
+  # User Authentication API methods
   def self.createUser(createUserData = {})
     configData = self.makeDataForPost("api/v1/users")
     body = { **configData[:spreadBody], **createUserData }
@@ -65,6 +66,45 @@ module ShowoffApi
   def self.currentUser(authorizationHeader = "")
     url = self.makeUrlForGet("api/v1/users/me")
     headers = { "Authorization": authorizationHeader }
-    currentUser = RestClient.get(url, headers) { |response, request, result| return response }
+    RestClient.get(url, headers) { |response, request, result| return response }
+  end
+
+  def self.getUser(authorizationHeader = "", id = "")
+    url = self.makeUrlForGet("api/v1/users/#{id}")
+    headers = { "Authorization": authorizationHeader }
+    RestClient.get(url, headers) { |response, request, result| return response }
+  end
+
+  # Users Widget API methods
+  def self.getUserWidgets(userId = "")
+    url = self.makeUrlForGet("api/v1/users/#{userId}/widgets")
+    userWidgets = RestClient.get(url, headers = {}) { |response, request, result| return response }
+  end
+
+  def self.searchUserWidgets(userId = "", term = "")
+    url = self.makeUrlForGet("api/v1/users/#{userId}/widgets", "&term=#{term}")
+    puts url
+    userWidgets = RestClient.get(url, headers = {}) { |response, request, result| return response }
+  end
+
+  # Widget CRUD API methods
+  def self.createWidget(authorizationHeader = "", data = {})
+    configData = self.makeDataForPost("api/v1/widgets")
+    headers = { **configData[:headers], "Authorization": authorizationHeader }
+    body = data
+    RestClient.post(configData[:url], body.to_json, headers) { |response, request, result| return response }
+  end
+
+  def self.updateWidget(authorizationHeader = "", id = "", data = {})
+    configData = self.makeDataForPost("api/v1/widgets/#{id}")
+    headers = { **configData[:headers], "Authorization": authorizationHeader }
+    body = data
+    RestClient.put(configData[:url], body.to_json, headers) { |response, request, result| return response }
+  end
+
+  def self.deleteWidget(authorizationHeader = "", id = "")
+    url = "#{ENV["showoff_api_url"]}/api/v1/widgets/#{id}"
+    headers = { "Content-Type": "application/json", "Authorization": authorizationHeader }
+    RestClient.delete(url, headers) { |response, request, result| return response }
   end
 end
