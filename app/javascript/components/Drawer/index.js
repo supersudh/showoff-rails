@@ -17,6 +17,7 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import WidgetsIcon from '@material-ui/icons/Widgets';
 import EmailIcon from '@material-ui/icons/Email';
+import SettingsIcon from '@material-ui/icons/Settings';
 
 const drawerWidth = 240;
 
@@ -61,6 +62,7 @@ function AuthenticatedActions({ history, fetchUserWidgets }) {
       }
     },
     { label: 'Change Password', path: '/change_password', Icon: LockOpenIcon },
+    { label: 'Settings', path: '/settings', Icon: SettingsIcon },
   ].map(({ label, path, Icon, customOnClick }, i) => (
     <ListItem button onClick={() => customOnClick ? customOnClick() : history.push(path)} key={`aa_${i}`}>
       <ListItemIcon><Icon /></ListItemIcon>
