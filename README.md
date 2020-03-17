@@ -8,6 +8,8 @@
 **Node version 12.14.1**\
 **yarn version 1.22.0**
 
+Also uses react.js, redux, redux-thunk, react-router-dom and other react libraries...
+
 [VIEW DEMO](https://showoff-supersudh.herokuapp.com/)
 
 
