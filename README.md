@@ -24,7 +24,7 @@ yarn
 
 ## Environment Secrets Configuration
 ```bash
-touch config secret.yml
+touch config/secret.yml
 ```
 ## Sample secret.yml file
 ```
