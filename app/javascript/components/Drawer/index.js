@@ -51,12 +51,18 @@ function NonAuthenticatedActions({ history }) {
   ));
 }
 
-function AuthenticatedActions({ history }) {
+function AuthenticatedActions({ history, fetchUserWidgets }) {
   return [
     { label: 'Widgets', path: '/widgets', Icon: WidgetsIcon },
+    {
+      label: 'My Widgets', path: '/widgets/user/me', Icon: WidgetsIcon, customOnClick: () => {
+        fetchUserWidgets('me');
+        history.push('/widgets/user/me');
+      }
+    },
     { label: 'Change Password', path: '/change_password', Icon: LockOpenIcon },
-  ].map(({ label, path, Icon }, i) => (
-    <ListItem button onClick={() => history.push(path)} key={`aa_${i}`}>
+  ].map(({ label, path, Icon, customOnClick }, i) => (
+    <ListItem button onClick={() => customOnClick ? customOnClick() : history.push(path)} key={`aa_${i}`}>
       <ListItemIcon><Icon /></ListItemIcon>
       <ListItemText primary={label} />
     </ListItem>
@@ -69,7 +75,8 @@ function RootDrawer(props) {
     global: {
       currentUser
     },
-    history
+    history,
+    fetchUserWidgets
   } = props;
 
   return (
@@ -93,7 +100,7 @@ function RootDrawer(props) {
         <div className={classes.toolbar} />
         <Divider />
         <List>
-          {currentUser ? <AuthenticatedActions history={history} /> : <NonAuthenticatedActions history={history} />}
+          {currentUser ? <AuthenticatedActions history={history} fetchUserWidgets={fetchUserWidgets} /> : <NonAuthenticatedActions history={history} />}
         </List>
         <Divider />
         <List>
@@ -114,6 +121,7 @@ RootDrawer.propTypes = {
   global: PropTypes.object.isRequired,
   children: PropTypes.element.isRequired,
   onLogout: PropTypes.func.isRequired,
+  fetchUserWidgets: PropTypes.func.isRequired,
 };
 
 export default withRouter(RootDrawer);

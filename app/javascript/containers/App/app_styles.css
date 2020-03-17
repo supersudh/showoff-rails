@@ -1,0 +1,11 @@
+.search-bar-create-container {
+  display: flex;
+  /* align-items: center; */
+  justify-content: space-between;
+}
+
+.search-bar-create-container .create-widget-button {
+  height: 40px !important;
+  margin-left: 1rem;
+  font-weight: bold;
+}
