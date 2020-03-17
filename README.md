@@ -47,12 +47,15 @@ Now visit http://localhost:3000 and view the app
 This project makes use of the showoff heroku API.\
 `app/showoff_api.rb` acts as the inferface between this rails API and showoff API
 
-# Demo 😊
+# Quick Demo 😊
 ### Registering a new user and creating a Widget
 ![Imgur Image](https://i.imgur.com/zRmVnFZ.gif)
 
 ### Searching for Widgets and editing current user's Widget
 ![Imgur Image](https://imgur.com/Po2b2FF.gif)
+
+### Login and updating user profile
+![Imgur Image](https://imgur.com/c1V9SWr.gif)
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
