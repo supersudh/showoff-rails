@@ -60,7 +60,7 @@ This project makes use of the showoff heroku API.\
 ![Imgur Image](https://imgur.com/c1V9SWr.gif)
 
 ### My Linkedin
-https://www.linkedin.com/in/sravi94/
+https://www.linkedin.com/in/sravik
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
